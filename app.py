@@ -91,10 +91,9 @@ def main():
     inflation_year = 1/100 * st.sidebar.slider("Inflation (%, affects rental income/cost)", 0.0, 10.0, value=inflation_year, step=0.1)
 
 
-
     b = Property('test', price=price, rehab_cost=rehab_cost, rehab_add=rehab_add, closing_cost_ratio=closing_cost_pct/100)
     b.sim_loan(down_payment_ratio=down_payment_ratio, years=years, 
-               interest_rate=interest_rate)
+               interest_rate=interest_rate, pmi_pct=pmi_percent)
     b.sim_equity(appreciation_year=appreciation_year)
     b.sim_ex(hoa=hoa, tax_rate=tax_rate, insurance_rate=insurance_rate, 
              maintenance_rate=maintenance_rate, inflation_year=inflation_year)

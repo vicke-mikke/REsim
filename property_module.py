@@ -10,13 +10,14 @@ class Property:
         self.closing_cost_ratio = closing_cost_ratio
         self.initial_cost = price * closing_cost_ratio + rehab_cost
     
-    def sim_loan(self, down_payment_ratio, years, interest_rate):
+    def sim_loan(self, down_payment_ratio, years, interest_rate, pmi_pct):
         self.years = years
         self.interest_rate = interest_rate
         self.n_pay = years * 12
         self.period = range(self.n_pay)
         self.down_payment_ratio = down_payment_ratio
         self.initial_total = self.initial_cost + self.price * down_payment_ratio
+
         principal = self.price * (1 - down_payment_ratio)
         r = interest_rate/12
         t = calc_loan(principal, self.n_pay, r)
@@ -26,7 +27,7 @@ class Property:
         self.end_balance = t['end_balance']
         # PMI
         balance80 = (self.price + self.rehab_add) * 0.8
-        self.pmi = [b * 0.01/12 if b > balance80
+        self.pmi = [b * pmi_pct/12 if b > balance80
                     else 0 for b in self.end_balance]
             
     def sim_equity(self, appreciation_year):
