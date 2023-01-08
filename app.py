@@ -73,11 +73,11 @@ def main():
     
     # renting
     rent=int(query_params.get('rent', [price*0.005])[0])
-    rent = st.sidebar.slider("Rent (monthly)", 0, rent*4, step=50, value=rent)
+    rent = st.sidebar.slider("Rent (monthly)", 0, max(rent*4, 1000), step=50, value=rent)
     vacancy_pct=int(query_params.get('vcr', [10])[0])
     vacancy_rate = 1/100 * st.sidebar.slider("Vacancy Rate (%)", 0, 100, step=1, value=vacancy_pct)
     op_value = int(query_params.get('op', [rent*0.1])[0])
-    op_value = st.sidebar.slider("Renting Expenses (such as management, extra maintenance, etc)", 0, op_value*5, value=op_value, step=1)
+    op_value = st.sidebar.slider("Renting Expenses (such as management, extra maintenance, etc)", 0, max(op_value*5, 1000), value=op_value, step=1)
     if rent==0:
         op_rate=0
     else:
